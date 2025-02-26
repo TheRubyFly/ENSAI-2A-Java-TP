@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Random;
 
 public class Password {
     /**
@@ -104,9 +105,13 @@ public class Password {
      */
     public static HashMap<String, Boolean> checkPasswordsList(ArrayList<String> passwords) {
 
-        // Code here
+        HashMap<String, Boolean> checkedPasswords = new HashMap<>();
+        for (String currPassword : passwords) {
+            boolean passStrength = isStrongPassword(currPassword);
+            checkedPasswords.put(currPassword, passStrength);
+        }
 
-        return null;
+        return checkedPasswords;
     }
 
     /**
@@ -122,10 +127,26 @@ public class Password {
      * @return A randomly generated password that meets the security criteria.
      */
     public static String generatePassword(int nbCar) {
-
-        // Code here
-
-        return null;
+        List<String> majList = List.of("A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M");
+        List<String> minList = List.of("n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z");
+        List<String> numList = List.of("0", "1", "2", "3", "4", "5", "6", "7", "8", "9");
+        List<String> speList = List.of("!", "?", ";", "@", "&", "#", "%");
+        String newPassword = "";
+        Random rand = new Random();
+        newPassword = newPassword + majList.get(rand.nextInt(majList.size()));
+        newPassword = newPassword + numList.get(rand.nextInt(numList.size()));
+        newPassword = newPassword + minList.get(rand.nextInt(minList.size()));
+        newPassword = newPassword + speList.get(rand.nextInt(speList.size()));
+        for (int i = 0; i < nbCar - 4; i++) {
+            int randList = rand.nextInt(5);
+            switch (randList) {
+                case 1 -> newPassword = newPassword + majList.get(rand.nextInt(majList.size()));
+                case 2 -> newPassword = newPassword + numList.get(rand.nextInt(numList.size()));
+                case 3 -> newPassword = newPassword + minList.get(rand.nextInt(minList.size()));
+                case 4 -> newPassword = newPassword + speList.get(rand.nextInt(speList.size()));
+            }
+        }
+        return newPassword;
     }
 
     public static void main(String[] args) {
