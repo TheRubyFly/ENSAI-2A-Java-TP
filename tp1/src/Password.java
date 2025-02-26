@@ -42,7 +42,8 @@ public class Password {
 
         for (int i = 0; i < 999999; i++) {
             String tempString = String.format("%06d", i);
-            if (tempString.equals(targetHash)) {
+            String tempHash = hashPassword(tempString);
+            if (tempHash.equals(targetHash)) {
                 return tempString;
             }
         }
@@ -66,9 +67,31 @@ public class Password {
      */
     public static boolean isStrongPassword(String password) {
 
-        // Code here
+        int length = password.length();
+        if (length < 12) {
+            return false;
+        }
+        boolean Upper = false;
+        boolean Lower = false;
+        boolean Digit = false;
+        boolean NoWhitespace = true;
+        for (int i = 0; i < length; i++) {
+            char currentChar = password.charAt(i);
+            if (Character.isUpperCase(currentChar)) {
+                Upper = true;
+            }
+            if (Character.isLowerCase(currentChar)) {
+                Lower = true;
+            }
+            if (Character.isDigit(currentChar)) {
+                Digit = true;
+            }
+            if (Character.isWhitespace(currentChar)) {
+                Upper = false;
+            }
+        }
 
-        return false;
+        return (Upper && Lower && Digit && NoWhitespace);
     }
 
     /**
