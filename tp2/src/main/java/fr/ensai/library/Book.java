@@ -3,14 +3,11 @@ package fr.ensai.library;
 /**
  * Represents a book.
  */
-public class Book {
+public class Book extends Item {
 
     // Attributes
     private String isbn;
-    private String title;
     private Author author;
-    private int year;
-    private int pageCount;
 
     /**
      * Constructs a new Book object.
